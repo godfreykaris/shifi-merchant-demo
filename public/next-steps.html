@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <title>Next steps — ElevateLife</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;450;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    .ns-page  { padding: 120px 0 96px; background: var(--bg-soft); min-height: 100vh; }
+    .ns-wrap  { max-width: 720px; margin: 0 auto; padding: 0 24px; }
+
+    .ns-eyebrow {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-light);
+      margin-bottom: 16px;
+    }
+    .ns-headline {
+      font-size: clamp(1.75rem, 4vw, 2.25rem);
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+    .ns-lede {
+      font-size: 1.0625rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 32px;
+      max-width: 56ch;
+    }
+
+    .ns-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.02);
+    }
+    .ns-card h2 {
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--text);
+      margin-bottom: 4px;
+    }
+    .ns-card .hint {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+    }
+
+    .ns-form {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px 20px;
+    }
+    .ns-form .full { grid-column: 1 / -1; }
+    .ns-field label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--text-light);
+      letter-spacing: 0.02em;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+    .ns-field input {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: #fff;
+      font: inherit;
+      font-size: 0.9375rem;
+      color: var(--text);
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    .ns-field input:focus {
+      outline: none;
+      border-color: var(--text);
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.04);
+    }
+
+    .ns-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 28px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+    .ns-actions .meta {
+      font-size: 0.8125rem;
+      color: var(--text-light);
+      margin-left: auto;
+    }
+
+    .ns-status {
+      font-size: 0.875rem;
+      color: var(--text-light);
+      margin-bottom: 24px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .ns-status .dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--text-light);
+    }
+    .ns-status.ready .dot { background: #16a34a; }
+
+    @media (max-width: 600px) {
+      .ns-page  { padding: 96px 0 64px; }
+      .ns-form  { grid-template-columns: 1fr; }
+      .ns-card  { padding: 24px; }
+      .ns-actions { flex-direction: column; align-items: stretch; }
+      .ns-actions .meta { margin-left: 0; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="container nav-content">
+      <a href="/" class="logo">Elevate<span>Life</span></a>
+      <ul class="nav-links">
+        <li><a href="/">Home</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="ns-page">
+    <div class="ns-wrap">
+      <span class="ns-eyebrow">Step 2 of 2</span>
+      <h1 class="ns-headline">Almost there — let's confirm your details</h1>
+      <p class="ns-lede">
+        Thanks for sharing your information. Take a quick look below and let us know
+        how you'd like to move forward. One of our enrollment specialists will follow
+        up shortly to finalize your spot.
+      </p>
+
+      <div class="ns-card">
+        <h2>Your information</h2>
+        <p class="hint">Edit anything that doesn't look right.</p>
+
+        <div id="status" class="ns-status">
+          <span class="dot"></span>
+          <span id="statusText">Preparing your details…</span>
+        </div>
+
+        <form class="ns-form" id="form" novalidate>
+          <div class="ns-field">
+            <label for="first_name">First name</label>
+            <input id="first_name" name="first_name" autocomplete="given-name" />
+          </div>
+          <div class="ns-field">
+            <label for="last_name">Last name</label>
+            <input id="last_name" name="last_name" autocomplete="family-name" />
+          </div>
+          <div class="ns-field full">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" />
+          </div>
+          <div class="ns-field">
+            <label for="phone">Phone</label>
+            <input id="phone" name="phone" type="tel" autocomplete="tel" />
+          </div>
+          <div class="ns-field">
+            <label for="date_of_birth">Date of birth</label>
+            <input id="date_of_birth" name="date_of_birth" autocomplete="bday" />
+          </div>
+          <div class="ns-field full">
+            <label for="street">Street address</label>
+            <input id="street" name="street" autocomplete="street-address" />
+          </div>
+          <div class="ns-field">
+            <label for="city">City</label>
+            <input id="city" name="city" autocomplete="address-level2" />
+          </div>
+          <div class="ns-field">
+            <label for="state">State</label>
+            <input id="state" name="state" autocomplete="address-level1" />
+          </div>
+          <div class="ns-field">
+            <label for="zip">ZIP</label>
+            <input id="zip" name="zip" autocomplete="postal-code" />
+          </div>
+          <div class="ns-field">
+            <label for="employer">Employer</label>
+            <input id="employer" name="employer" autocomplete="organization" />
+          </div>
+
+          <div class="ns-actions full">
+            <button type="submit" class="btn btn-primary">Continue enrollment</button>
+            <span class="meta">We'll reach out within one business day.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Local dev uses the shifi laravel server; deployed merchant site uses
+    // the public shifi host. Override by adding ?shifi=<base> to the URL.
+    const SHIFI_HOST = new URLSearchParams(location.search).get('shifi')
+      || (location.hostname === 'localhost' || location.hostname === '127.0.0.1'
+          ? 'http://localhost:8000'
+          : 'https://dev.shifi.ai');
+    const DECODE_URL = `${SHIFI_HOST}/shifi-c/decline-token/decode`;
+    const status = document.getElementById('status');
+    const statusText = document.getElementById('statusText');
+    const form = document.getElementById('form');
+
+    function markReady(label) {
+      status.classList.add('ready');
+      statusText.textContent = label;
+    }
+
+    function setField(id, value) {
+      if (value == null || value === '') return;
+      const el = document.getElementById(id);
+      if (el) el.value = value;
+    }
+
+    async function hydrateFromToken(token) {
+      try {
+        const res = await fetch(DECODE_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ token }),
+        });
+        if (!res.ok) {
+          markReady('Please fill in your details below.');
+          return;
+        }
+        const data = await res.json();
+        const c = data.customer || {};
+        const addr = c.address || {};
+        const emp = c.employment || {};
+
+        setField('first_name',    c.first_name);
+        setField('last_name',     c.last_name);
+        setField('email',         c.email);
+        setField('phone',         c.phone);
+        setField('date_of_birth', c.date_of_birth);
+        setField('street',        addr.street);
+        setField('city',          addr.city);
+        setField('state',         addr.state);
+        setField('zip',           addr.zip);
+        setField('employer',      emp.employer_name);
+
+        markReady('Your details are prefilled and ready to review.');
+      } catch {
+        markReady('Please fill in your details below.');
+      }
+    }
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const btn = form.querySelector('button[type="submit"]');
+      btn.disabled = true;
+      btn.textContent = 'Thanks — we\'ll be in touch';
+    });
+
+    const token = new URLSearchParams(location.search).get('token');
+    if (token) {
+      hydrateFromToken(token);
+    } else {
+      markReady('Please fill in your details below.');
+    }
+  </script>
+</body>
+</html>
